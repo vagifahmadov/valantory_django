@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+</head>
+<link rel="stylesheet" href="{% static 'css/recognition.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<!-- swift alert start -->
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+<!-- sfift alert end -->
+
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}"> -->
+
+<link rel="shortcut icon" href="#">
+
+<body>
+    <!-- progress -->
+    <div class="progress_ex">
+        <div class="loader"></div>
+    </div>
+    <div class="bg_progress"></div>
+    <!-- progress -->
+    <section>
+        <div class="wave">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="content">
+            <button type="button" class="back" onclick="back_page()">
+                <svg width="50px" height="50px" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m50-0.0039062c-27.57 0-50 22.434-50 50.004s22.43 50.004 50 50.004 50-22.434 50-50.004-22.43-50.004-50-50.004zm0 94.234c-24.391 0-44.23-19.844-44.23-44.234 0-24.387 19.84-44.227 44.23-44.227s44.23 19.84 44.23 44.23-19.84 44.23-44.23 44.23z" fill="#032a8c"/>
+                    <path d="m59.371 46.406-26.289-0.003906 11.195-11.195c1.1328-1.1289 1.1328-2.9648 0-4.0938-1.1328-1.1328-2.9648-1.1328-4.0938 0l-16.141 16.141c-0.13672 0.13672-0.25391 0.28516-0.35938 0.44141-0.042969 0.0625-0.074219 0.13672-0.10938 0.19922-0.054688 0.097657-0.11328 0.19141-0.15625 0.29688-0.035157 0.085938-0.054688 0.17188-0.082031 0.25781-0.027344 0.09375-0.0625 0.18359-0.085938 0.28125-0.03125 0.14844-0.039062 0.29688-0.046875 0.44531 0 0.039063-0.011719 0.078125-0.011719 0.11719 0 0.046875 0.011719 0.085937 0.011719 0.13281 0.007813 0.14453 0.015625 0.28906 0.046875 0.43359 0.019531 0.10547 0.058594 0.19922 0.089844 0.30078 0.023437 0.082032 0.042968 0.16406 0.074218 0.24219 0.046876 0.11328 0.10938 0.21875 0.16797 0.32031 0.03125 0.058594 0.058594 0.12109 0.097657 0.17969 0.10937 0.16016 0.23047 0.3125 0.36719 0.44531l16.137 16.137c0.56641 0.5625 1.3047 0.84766 2.0469 0.84766 0.74219 0 1.4805-0.28125 2.0508-0.84766 1.1289-1.1328 1.1289-2.9648 0-4.0977l-11.199-11.191h26.289c6.4219 0 11.645 5.2227 11.645 11.645 0 1.6016 1.2969 2.8945 2.8945 2.8945 1.6016 0 2.8945-1.2969 2.8945-2.8945 0.003906-9.6133-7.8203-17.438-17.434-17.434z" fill="#032a8c"/>
+                   </svg>                   
+            </button>
+
+            <button type="button" class="snapshot" onclick="capture()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor">
+                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                    <path fill-rule="evenodd" d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"></path>
+                </svg>                      
+            </button>
+            
+            <div class="bg_video_1">
+                <div class="bg_video_2">
+                    <center class="bg_video"> 
+                        <div id="container">
+                        <div id="countdown"></div>
+                        <video width="550" height="500" autoplay="true" id="video">
+                        </video>
+                        </div>
+                        <!-- <button onclick="capture()">Capture</button>  <br> </br> -->
+                        <canvas id="canvas" style="overflow:auto"></canvas>
+                        <!-- <br></br>
+                        <p> Image Converted to String: </p>
+                        <p id="printresult"></p> -->
+                    </center>
+                </div>
+            </div>
+        </div>
+      </section>
+
+    
+      <script src="{% static 'js/recognition.js' %}"></script>
+    <script>
+        // $(".bg_progress").hide();
+        // $(".progress_ex").hide();
+        loading_mode_off();
+        // global ip
+        // fetch('https://api.ipify.org?format=json')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log('Your IP address is: ' + data.ip);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching IP:', error);
+        //     }
+        // );
+        // local ip
+        let ip_addr = "X.X.X.X"
+        // get IP
+        const ip_v = getLocalIP(ip => {
+                console.log("Local IP Address is:", ip);
+                ip_addr = ip;
+            }
+        );
+        var video = document.querySelector("#video");
+        var stream_g = ""; 
+        var resultb64="";     
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    stream_g = stream;
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    // CAMERA ERROR
+                    $(".snapshot").hide();
+                    Swal.fire({
+                        icon: "error",
+                        title: "Xəta!",
+                        text: "Kamera qoşulmayıb?",
+                        footer: '<h7 class="small_text">Kameranın qoşulmasından, kameranın başqa səhifə və tətbiqdə açıq qalmaması və ya kameraya icazənin verilməsindən əmin olun.</h7>'
+                        }
+                    ).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            back_page();
+                        } else if(result.dismiss === Swal.DismissReason.cancel){
+                            console.log("canceled in");
+                        }
+                        }
+                    );
+                }
+            );
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- <script src="{% static 'js/script.js' %}"></script> -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>FaceID Könüllülər</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="/recognition" method="post">
+                {% csrf_token %}
+                <input name="type" hidden value="in">
+                <h1>GİRİŞİN QEYDİYYATI</h1>
+                
+                <p><button id="enter">GİRİŞ</button></p>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <form action="/recognition" method="post">
+                        {% csrf_token %}
+                        <input name="type" hidden value="out">
+                        <h1>ÇIXIŞIN QEYDİYYATI</h1>
+                        <p><button class="ghost" id="exit">ÇIXIŞ</button></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>ASAN XİDMƏT 2025</p>
+    </footer>
+</body>
+</html>
