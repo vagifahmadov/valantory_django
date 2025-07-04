@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 ]
 
 CRON_CLASSES = [
-    "faceid.cron.MyJob",
+    "main.cron.MyCronJob",
 ]
 
 

@@ -15,5 +15,5 @@ class UserData(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['field1', 'field2']),  # ✅ correct
+            models.Index(fields=['uid'])
         ]
