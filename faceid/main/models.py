@@ -17,3 +17,9 @@ class UserData(models.Model):
         indexes = [
             models.Index(fields=['uid'])
         ]
+
+
+class Logs(models.Model):
+    date_run = models.DateTimeField(null=False, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    error = models.CharField(max_length=255, null=True, blank=True)

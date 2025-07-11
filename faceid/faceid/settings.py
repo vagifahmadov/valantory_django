@@ -38,13 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cron'
+    'django_cron',
+    'django_crontab'
 ]
 
 CRON_CLASSES = [
     "main.cron.MyCronJob",
 ]
 
+CRONJOBS = [
+    ('*/2 * * * *', 'main.cron.MyCronJob'),  # Runs every two minutes
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,11 +126,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Baku'
 
-USE_I18N = True
+# USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

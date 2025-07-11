@@ -1,12 +1,14 @@
 from django_cron import CronJobBase, Schedule
-import datetime
+from django.utils import timezone
+from .models import Logs
 
 
 class MyCronJob(CronJobBase):
-    RUN_EVERY_MINS = 1
+    RUN_EVERY_MINS = 300
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'myapp.my_cron_job'
+    code = 'Aze19051985#'
 
     def do(self):
-        with open("cron_log.txt", "a") as f:
-            f.write(f"[{datetime.datetime.now()}] Cron çalıştı!\n")
+        print("Runed", timezone.now())
+        create_log = Logs.objects.create(date_run=timezone.now(), description="Runed", error=None)
+
